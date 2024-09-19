@@ -27,20 +27,44 @@
             text-align: center;
             color: #333;
         }
+        .auth {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 5vh;
+
+        }
+        form#registerForm {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2vh;
+            width: 25vh;
+        }
+        form#connexionForm {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2vh;
+            width: 25vh;
+        }
         form {
             display: flex;
+            flex-direction: row;
+            justify-content: center;
             align-items: center;
         }
-        input[type="text"] {
+        input[type="text"], input[type="password"] {
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 60%;
-            margin-bottom: 10px;
+            border-radius: .4vh;
         }
         button {
-            padding: 10px 20px;
+            padding: 10px;
             font-size: 16px;
             color: #fff;
             background-color: #007bff;
@@ -94,14 +118,16 @@
 </head>
 <body>
     <div class="container">
-        <h1>Prévisions Météo</h1>
-        <form id="weatherForm">
-            <div style="position: relative; width: 60%;">
-                <input type="text" id="cityInput" placeholder="Entrez le nom de la ville" required>
-                <div id="suggestions" class="suggestions"></div>
-            </div>
-            <button type="submit">Valider</button>
-        </form>
+        <div class="app_form">
+            <h1>Prévisions Météo</h1>
+            <form id="weatherForm">
+                <div style="position: relative; width: 60%;">
+                    <input type="text" id="cityInput" placeholder="Entrez le nom de la ville" required>
+                    <!-- <div id="suggestions" class="suggestions"></div> -->
+                </div>
+                <button type="submit">Valider</button>
+            </form>
+        </div>
 
         <table id="weatherTable">
             <thead>
@@ -117,7 +143,26 @@
         
         <div id="errorMessage" class="error"></div>
     </div>
-
+    <div class="container">
+        <section class="auth">
+            <div class="register">
+                <h1>S'inscrire</h1>
+                <form action="auth/register.php" id="registerForm" class="registerForm">
+                    <input type="text" id="identifiant" name="registeridentifiant" placeholder="Créer votre identifiant" required>
+                    <input type="password" id="password" name="registerMdp" placeholder="Créer votre mot de passe" required>
+                    <button type="submit">Valider</button>                    
+                </form>
+            </div>
+            <div class="connexion">
+                <h1>Se connecter</h1>
+                <form action="auth/connexion.php" id="connexionForm" class="connexionForm">
+                    <input type="text" id="identifiant" name="connexionidentifiant" placeholder="Entrez votre identifiant" required>
+                    <input type="password" id="password" name="connexionMdp" placeholder="Entrez votre mot de passe" required>
+                    <button type="submit">Valider</button>                    
+                </form>
+            </div>
+        </section>
+    </div>
     <script>
         const apiKey = '737375a3254aa299451a3ec8cab35414';
         const minTemp = 12; 
