@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,14 +13,12 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
+        
         .container {
             width: 80%;
             max-width: 800px;
-            margin-top: 20px;
+            margin: 20px auto;
             padding: 20px;
             background: #fff;
             border-radius: 8px;
@@ -114,50 +115,44 @@
         .suggestion-item:hover {
             background-color: #f0f0f0;
         }
+        
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .navbar .right {
+            float: right;
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="app_form">
-            <h1>Prévisions Météo</h1>
-            <form id="weatherForm">
-                <div style="position: relative; width: 60%;">
-                    <input type="text" id="cityInput" placeholder="Entrez le nom de la ville" required>
-                    <!-- <div id="suggestions" class="suggestions"></div> -->
-                </div>
-                <button type="submit">Valider</button>
-            </form>
-        </div>
-
-        <table id="weatherTable">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Température Max (°C)</th>
-                    <th>Température Min (°C)</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        
-        <div id="errorMessage" class="error"></div>
-    </div>
+<body>   
     <div class="container">
         <section class="auth">
             <div class="register">
                 <h1>S'inscrire</h1>
-                <form action="auth/register.php" id="registerForm" class="registerForm">
-                    <input type="text" id="identifiant" name="registeridentifiant" placeholder="Créer votre identifiant" required>
-                    <input type="password" id="password" name="registerMdp" placeholder="Créer votre mot de passe" required>
+                <form method="post" action="auth/register.php" id="registerForm" class="registerForm">
+                    <input type="text" id="registeridentifiant" name="registeridentifiant" placeholder="Créer votre identifiant" required>
+                    <input type="password" id="registerMdp" name="registerMdp" placeholder="Créer votre mot de passe" required>
                     <button type="submit">Valider</button>                    
                 </form>
             </div>
             <div class="connexion">
                 <h1>Se connecter</h1>
-                <form action="auth/connexion.php" id="connexionForm" class="connexionForm">
-                    <input type="text" id="identifiant" name="connexionidentifiant" placeholder="Entrez votre identifiant" required>
-                    <input type="password" id="password" name="connexionMdp" placeholder="Entrez votre mot de passe" required>
+                <form method="post" action="auth/connexion.php" id="connexionForm" class="connexionForm">
+                    <input type="text" id="connexionidentifiant" name="connexionidentifiant" placeholder="Entrez votre identifiant" required>
+                    <input type="password" id="connexionMdp" name="connexionMdp" placeholder="Entrez votre mot de passe" required>
                     <button type="submit">Valider</button>                    
                 </form>
             </div>
@@ -251,6 +246,14 @@
             minTempCell.textContent = `${minTemp} °C`;
             row.appendChild(minTempCell);
 
+            
+            const tagCell = document.createElement('td');
+            const tagButton = document.createElement('button');
+            tagButton.textContent = 'Tag as Potential Destination';
+            tagButton.onclick = () => tagCity(date, maxTemp, minTemp);
+            tagCell.appendChild(tagButton);
+            row.appendChild(tagCell);
+
             tableBody.appendChild(row);
         }
 
@@ -283,6 +286,25 @@
             }
         });
 
+
+        async function tagCity(date, maxTemp, minTemp) {
+            const city = document.getElementById('cityInput').value.trim();
+            const response = await fetch('php/tag_city.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ city, date, maxTemp, minTemp }),
+            });
+
+            if (response.ok) {
+                alert('Ville étiquetée comme destination potentielle!');
+            } else {
+                alert('Échec du marquage de la ville. Veuillez réessayer.');
+            }
+        }
+        
+        
         document.getElementById('weatherForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             const city = document.getElementById('cityInput').value.trim();
