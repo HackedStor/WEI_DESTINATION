@@ -25,7 +25,7 @@ This web application allows users to search for potential travel destinations ba
 1. Clone the repository to your local machine.
 2. Set up a local web server (e.g., Apache) with PHP support.
 3. Create a MySQL database named `travel-destinations-finder` or any name you want.
-4. Import the database schema (you'll find the sql file in the database folder which is in the `to_delete_after_setup_finished` folder) Be careful to use modify the sql file to use the correct database name and the import the sql file to PHPMyAdmin.
+4. Import the database schema (you'll find the sql queries to create the tables in the folder named : `to_delete_after_setup_finished`).
 5. Update the database connection details in `auth/db_connect.php`.
 6. Obtain an API key from OpenWeatherMap and replace `apiKey` in `index.php`.
 
