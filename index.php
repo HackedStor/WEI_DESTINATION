@@ -162,7 +162,7 @@ session_start();
         const apiKey = 'YOUR_API_KEY';
         const minTemp = YOUR_MIN_TEMP; 
         const maxTemp = YOUR_MAX_TEMP;
-        const tolerance = 1;
+        const tolerance = YOUR_TOLERANCE;
         const startDate = new Date('YOUR_START_DATE');
         const endDate = new Date('YOUR_END_DATE'); 
 
