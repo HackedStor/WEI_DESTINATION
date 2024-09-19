@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $identifiant = $_POST["connexionidentifiant"];
     $mdp = $_POST["connexionMdp"];
 
-    
+    // Retrieve user from database
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->execute([$identifiant]);
     $user = $stmt->fetch();
