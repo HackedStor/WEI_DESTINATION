@@ -159,12 +159,12 @@ session_start();
         </section>
     </div>
     <script>
-        const apiKey = '737375a3254aa299451a3ec8cab35414';
-        const minTemp = 12; 
-        const maxTemp = 22;
+        const apiKey = 'YOUR_API_KEY';
+        const minTemp = YOUR_MIN_TEMP; 
+        const maxTemp = YOUR_MAX_TEMP;
         const tolerance = 1;
-        const startDate = new Date('2024-09-20T12:00:00');
-        const endDate = new Date('2024-09-22T17:00:00'); 
+        const startDate = new Date('YOUR_START_DATE');
+        const endDate = new Date('YOUR_END_DATE'); 
 
         let cities = []; 
 
